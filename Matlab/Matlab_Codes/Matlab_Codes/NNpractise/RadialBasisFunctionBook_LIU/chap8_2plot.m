@@ -1,0 +1,27 @@
+close all;
+figure(1);
+subplot(211);
+%plot(t,0.1*sin(t),'r',t,y(:,1),'k:','linewidth',2);
+plot(out.tout,0.1*sin(out.tout),'r',out.tout,out.yout{2}.Values.Data(:,1),'k:','linewidth',2);
+xlabel('time(s)');ylabel('yd,y');
+legend('ideal angle','Angle tracking');
+subplot(212);
+%plot(t,0.1*cos(t),'r',t,y(:,2),'k:','linewidth',2);
+plot(out.tout,0.1*cos(out.tout),'r',out.tout,out.yout{2}.Values.Data(:,2),'k:','linewidth',2);
+xlabel('time(s)');ylabel('dyd,dy');
+legend('ideal angle speed','Angle speed tracking');
+figure(2);
+% plot(t,ut(:,1),'r','linewidth',2);
+% xlabel('time(s)');ylabel('Control input');
+% figure(3);
+% plot(t,fx(:,1),'r',t,fx(:,2),'k:','linewidth',2);
+% xlabel('time(s)');ylabel('fx');
+% legend('Practical fx','fx estimation');
+%
+plot(out.tout,out.yout{2}.Values.Data(:,1),'k:','linewidth',2);
+ xlabel('time(s)');ylabel('Control input');
+ figure(3);
+% plot(t,fx(:,1),'r',t,fx(:,2),'k:','linewidth',2);
+plot(out.tout,out.yout{1}.Values.Data(:,1),'r',out.tout,out.yout{1}.Values.Data(:,2),'k:','linewidth',2);
+ xlabel('time(s)');ylabel('fx');
+legend('Practical fx','fx estimation');

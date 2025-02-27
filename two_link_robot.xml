@@ -1,0 +1,45 @@
+<mujoco>
+    <compiler angle="radian" coordinate="local" />
+    <option timestep="0.01" />
+
+    <worldbody>
+        <geom type="plane" name="plane" size="10 10 1" rgba="0 0.5 0.5 1" pos="0 0 0"/>
+        <light pos="10 10 10" dir="-10 -10 -10" />
+        <camera name="Free" pos="-3.411 -6.658 3.753" xyaxes="0.915 -0.403 -0.000 0.082 0.186 0.979"/>
+
+
+        <body name="base" pos="0 0 3">
+            <joint name="base_joint" type="hinge" axis="0 0 1" range="0 0.1" damping="10"/>
+            <geom type="box" size=".2 .2 .2" rgba=".5 0 0 1" pos="0 0 0"/>
+            
+            <body name="link1" pos="0.0 0 -0.1" zaxis="1 0 0">
+                <joint name="knee_joint" type="hinge" axis="0 1 0" range="-1.57 1.57" damping="10"/>
+                <geom name="link1" type="capsule" fromto="0 0 0 1 0 0" size="0.1" />
+                <site name="link1" type="capsule" fromto="0 0 0 1 0 0" size="0.1" />
+            
+                <body name="link2" pos="1 0 0">
+                    <joint name="ankle_joint" type="hinge" axis="0 1 0" range="-1.57 1.57" damping="10"/>
+                    <geom name="link2" type="capsule" fromto="0 0 0 1 0 0" size="0.08" />
+                    <site name="link2" type="capsule" fromto="0 0 0 1 0 0" size="0.08" />
+                </body>
+            
+            </body>
+        
+        </body>
+    </worldbody>
+
+    <actuator>
+        <motor joint="knee_joint" gear=" 1.0"/>
+        <motor joint="ankle_joint" gear="1.0"/>
+    </actuator>
+    <sensor>
+        <jointpos name="knee_pos" joint="knee_joint"  cutoff="40"/>
+        <jointpos name="ankle_pos" joint="ankle_joint" cutoff="40"/>
+
+        <jointvel name="knee_vel" joint="knee_joint" cutoff="40"/>
+        <jointvel name="ankle_vel" joint="ankle_joint" cutoff="40"/>
+        
+        <frameangacc name="knee_acc"  objtype="site" objname="link1"  cutoff="40"/>
+        <frameangacc name="ankle_acc" objtype="site" objname="link2"  cutoff="40"/>
+    </sensor>
+</mujoco>

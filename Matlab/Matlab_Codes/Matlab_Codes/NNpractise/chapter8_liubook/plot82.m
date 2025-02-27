@@ -1,0 +1,16 @@
+figure(1);
+subplot(211);
+plot(out.tout,0.1*sin(out.tout),'r',out.tout,out.y.Data(:,1),'k:','linewidth',2); 
+xlabel('time(s)');ylabel('yd,y');
+legend('ideal angle','Angle tracking');
+subplot(212);
+plot(out.tout,0.1*cos(out.tout),'r',out.tout,out.y.Data(:,2),'k:','linewidth',2);
+xlabel('time(s)');ylabel('dyd,dy');
+legend('ideal angle speed','Angle speed tracking');
+% figure(2);
+% plot(t,ut(:,1),'r','linewidth',2);
+% xlabel('time(s)');ylabel('Control input');
+% figure(3);
+% plot(t,fx(:,1),'r',t,fx(:,2),'k:','linewidth',2);
+% xlabel('time(s)');ylabel('fx');
+% legend('Practical fx','fx estimation');
