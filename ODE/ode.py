@@ -21,9 +21,9 @@ Fai = np.array([
 ])
 A = Fai.T
 P = solve_continuous_lyapunov(A,Q)
-W = np.ones(5).reshape((5,1))*0.0
+W = np.ones(5).reshape((5,1))*0.01
 gamma = 1200
-eta = 0.0001
+eta = 0.001
 m_dash = 100
 m_hat = 120
 B = np.array([0,1]).reshape((2,1))
@@ -92,7 +92,7 @@ def control_input(y,y_d, t):
 x0 = [0.2, 0]  # Initial position and velocity
 
 # Time span for simulation
-t_span = (0, 200)  # Simulate for 10 seconds
+t_span = (0, 100)  # Simulate for 10 seconds
 t_eval = np.linspace(t_span[0], t_span[1], 10000)  # Time points for evaluation
 
 # Solve ODE
@@ -102,7 +102,7 @@ solution = solve_ivp(system_dynamics, t_span, x0, args=(control_input,), t_eval=
 plt.figure(figsize=(10, 5))
 plt.plot(solution.t, solution.y[0], label="Position $x_1$")
 # plt.plot(solution.t, solution.y[1], label="Velocity $x_2$")
-plt.plot(solution.t, np.sin(solution.t), label="Trajectory $x_2$")
+# plt.plot(solution.t, np.sin(solution.t), label="Trajectory $x_2$")
 plt.xlabel("Time [s]")
 plt.ylabel("State Variables")
 plt.title("Simulation of the Given System")
