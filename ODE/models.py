@@ -1,7 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def fourier5_ankle(x):
+def fourier5_ankle(t):
+    
+    x=t/15
     # Coefficients
     a0 = -0.007782
     a1 = -0.0204
@@ -30,22 +32,24 @@ def fourier5_ankle(x):
             -4 * a4 * w * np.sin(4 * x * w) + 4 * b4 * w * np.cos(4 * x * w) +
             -5 * a5 * w * np.sin(5 * x * w) + 5 * b5 * w * np.cos(5 * x * w))
 
-    d2f_x = (-a1 * w**2 * np.cos(x * w) - b1 * w**2 * np.sin(x * w) +
-             -4 * a2 * w**2 * np.cos(2 * x * w) - 4 * b2 * w**2 * np.sin(2 * x * w) +
-             -9 * a3 * w**2 * np.cos(3 * x * w) - 9 * b3 * w**2 * np.sin(3 * x * w) +
-             -16 * a4 * w**2 * np.cos(4 * x * w) - 16 * b4 * w**2 * np.sin(4 * x * w) +
-             -25 * a5 * w**2 * np.cos(5 * x * w) - 25 * b5 * w**2 * np.sin(5 * x * w))
+
 
     # Adjusted function
     f_x2 = f_x - a0
     df_x2 = df_x
-    d2f_x2 = d2f_x
 
-    return f_x2, df_x2, d2f_x2
 
-# Generate data and plot
-x = np.arange(0, 1, 0.001)
-y, dy, d2y = fourier5_ankle(x)
+    return f_x2, df_x2
+
+
+
+
+def simple_sincos(t_inp):
+    t = t_inp+1e-6
+    x = np.sin(t)/(t)
+    dx = (np.cos(t) - np.sin(t)/t)/t
+    
+    return x, dx
 
 # plt.plot(x, y, label='f(x)')
 # plt.plot(x, dy, label="f'(x)")
