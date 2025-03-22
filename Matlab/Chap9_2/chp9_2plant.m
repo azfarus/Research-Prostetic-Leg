@@ -58,7 +58,7 @@ function sys = mdlOutputs(t, x, u)
     C = [-p(3) * x(4) * sin(x(3)) -p(3) * (x(2) + x(4)) * sin(x(3));
        p(3) * x(2) * sin(x(3)) 0];
     G = [p(4) * g * cos(x(1)) + p(5) * g * cos(x(1) + x(3));
-       p(5) * g * cos(x(1) + x(3))];
+         p(5) * g * cos(x(1) + x(3))];
     dq = [x(2); x(4)];
     F = 0.2 * sign(dq);
     told = [0.1 * sin(t); 0.1 * sin(t)];

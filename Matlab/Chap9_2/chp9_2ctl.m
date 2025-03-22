@@ -71,8 +71,7 @@ function sys = mdlDerivatives(t, x, u)
     F = 15 * eye(node);
 
     for i = 1:1:node
-        sys(i) = 15 * h1(i) * r(1);
-        sys(i + node) = 15 * h2(i) * r(2);
+
     end
 
 end
