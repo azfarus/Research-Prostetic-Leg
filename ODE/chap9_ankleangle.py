@@ -8,14 +8,14 @@ from models import simple_sincos,fourier5_ankle
 # Define system dynamics
 
 b=10
-L = 15*np.eye(2)
+L = 15
 Fai = 15.0*np.eye(2)
-Kv= 60.0*np.eye(2)
+Kv = 1.0*np.eye(2)
 nodes = 7
 c = np.vstack(
     (
-    np.linspace(-15,15,nodes),
-    np.linspace(-15,15,nodes),
+        np.linspace(-15,15,nodes),
+        np.linspace(-15,15,nodes),
     ),dtype=np.float64
 )
 
@@ -102,12 +102,6 @@ def control_input(y,y_d,t,w1,w2,trajectory_func):
     W1=w1.reshape(nodes,1)
     W2=w2.reshape(nodes,1)
 
-    # q1d =     np.sin(t)+np.co
-    # q1d_d =   np.cos(t)
-
-    
-    # q2d =     np.sin(t)
-    # q2d_d =   np.cos(t)
     
     q1d , q1d_d = trajectory_func(t)
     q2d , q2d_d = trajectory_func(t)
@@ -131,8 +125,8 @@ def control_input(y,y_d,t,w1,w2,trajectory_func):
     h1 = RBF(z1)
     h2 = RBF(z2)
     
-    W_hat1 = 15 * (h1 * r[0,0]) 
-    W_hat2 = 15 * (h2 * r[1,0]) 
+    W_hat1 = ( L/(1+np.linalg.norm(r)) ) * (h1 * r[0,0]) 
+    W_hat2 = ( L/(1+np.linalg.norm(r)) ) * (h2 * r[1,0]) 
     
 
     fn = np.array([
@@ -151,7 +145,7 @@ def control_input(y,y_d,t,w1,w2,trajectory_func):
     return tol , q_dot  ,W_hat1,W_hat2
 
 # Initial conditions
-x0 = np.array([0.09,0.0,-0.09, 0.0]+[0]*2*nodes)  # Initial position and velocity
+x0 = np.array([1,0.0,1, 0.0]+[0]*2*nodes)  # Initial position and velocity
 
 # Time span for simulation
 t_span = (0, 40)  # Simulate for 10 seconds
@@ -175,8 +169,8 @@ ax[0].plot(solution['t'], solution['y'][0,:], label="position",c='r')
 ax[0].plot(solution['t'], trajectory_func(solution['t'])[0], label="trajectory",c='g')
 # ax[0].plot(solution['t'], trajectory_func(solution['t'])[0] - solution['y'][0,:] , label="error")
 
-ax[1].plot(solution['t'], solution['y'][1,:], label="velocity",c='r')
-ax[1].plot(solution['t'], trajectory_func(solution['t'])[1], label="trajectory",c='g')
+ax[1].plot(solution['t'], solution['y'][2,:], label="velocity",c='r')
+ax[1].plot(solution['t'], trajectory_func(solution['t'])[0], label="trajectory",c='g')
 # ax[1].plot(solution['t'], trajectory_func(solution['t'])[1] - solution['y'][1,:] , label="error")
 
 
